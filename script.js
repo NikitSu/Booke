@@ -7,6 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreElement = document.getElementById("score");
     let score = 0;
 
+    document.addEventListener('mousedown', function(event){
+        if (event.target.className.includes('no-select')) {
+            event.preventDefault();
+        }
+    }, false);
+
     // Имитация загрузочного экрана на пару секунд
     setTimeout(() => {
         loadingScreen.classList.add('hidden');
