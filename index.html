@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Запрет масштабирования -->
-    <title>Click the Circle</title>
+    <title>Tap Game</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body, html {
@@ -12,12 +12,21 @@
     </style>
 </head>
 <body>
-    <div class="circle"></div>
-    <div class="buttons-container">
-        <div class="button" id="earn">earn</div>
-        <div class="button" id="boost">boost</div>
-        <div class="button" id="friends">friends</div>
-        <div class="button" id="read">read</div>
+    <div id="loading-screen">
+        <div class="loading-text">Loading...</div>
+    </div>
+    <div id="play-screen" class="hidden">
+        <button id="play-button">Play</button>
+    </div>
+    <div id="game-screen" class="hidden">
+        <div class="score-container">Score: <span id="score">0</span></div>
+        <div class="circle"></div>
+        <div class="buttons-container">
+            <div class="button" id="earn">earn</div>
+            <div class="button" id="boost">boost</div>
+            <div class="button" id="friends">friends</div>
+            <div class="button" id="read">read</div>
+        </div>
     </div>
 
     <script src="script.js"></script>
