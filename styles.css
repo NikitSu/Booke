@@ -92,18 +92,6 @@ body, html {
     user-select: none; /* Запрет выделения текста на кнопках */
 }
 
-.no-select {
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE/Edge */
-  user-select: none; /* Стандартный синтаксис */
-}
-
-.no-select::selection {
-  background: transparent; /* Какое выделение? Не вижу! */
-  color: inherit; /* Цвет текста сохраняется, даже если кто-то пытается его выделить */
-}
-
 .button:active {
     transform: scale(0.95);
     background-color: #2980b9;

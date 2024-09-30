@@ -7,17 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreElement = document.getElementById("score");
     let score = 0;
 
-    document.addEventListener('mousedown', function(event){
-        if (event.target.className.includes('no-select')) {
-            event.preventDefault();
-        }
-    }, false);
-
     // Имитация загрузочного экрана на пару секунд
     setTimeout(() => {
         loadingScreen.classList.add('hidden');
         playScreen.classList.remove('hidden');
-    }, 10000); // 2 секунды
+    }, 2000); // 2 секунды
 
     // Переход на игровой экран при нажатии кнопки Play
     playButton.addEventListener('click', () => {
@@ -25,12 +19,16 @@ document.addEventListener("DOMContentLoaded", () => {
         gameScreen.classList.remove('hidden');
     });
 
-    circle.addEventListener("mousedown", incrementScore);
-    circle.addEventListener("touchstart", incrementScore);
+    circle.addEventListener("mousedown", incrementScore, { once: true });
+    circle.addEventListener("touchstart", incrementScore, { once: true });
 
     function incrementScore() {
         score++;
         scoreElement.textContent = score;
+        setTimeout(() => {
+            circle.addEventListener("mousedown", incrementScore, { once: true });
+            circle.addEventListener("touchstart", incrementScore, { once: true });
+        }, 100); // Задержка для предотвращения двойного нажатия
     }
 
     // Логика для кнопок
