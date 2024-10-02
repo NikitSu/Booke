@@ -19,17 +19,24 @@ document.addEventListener("DOMContentLoaded", () => {
         gameScreen.classList.remove('hidden');
     });
 
-    circle.addEventListener("mousedown", incrementScore, { once: true });
-    circle.addEventListener("touchstart", incrementScore, { once: true });
-
-    function incrementScore() {
+    function incrementScore(event) {
+        event.preventDefault(); // Предотвращение двойного действия
         score++;
         scoreElement.textContent = score;
+
+        // Удаление предыдущего события для предотвращения повторного срабатывания
+        circle.removeEventListener("mousedown", incrementScore);
+        circle.removeEventListener("touchstart", incrementScore);
+
         setTimeout(() => {
             circle.addEventListener("mousedown", incrementScore, { once: true });
             circle.addEventListener("touchstart", incrementScore, { once: true });
-        }, 100); // Задержка для предотвращения двойного нажатия
+        }, 300); // Увеличиваем задержку, чтобы устранить двойные нажатия
     }
+
+    // Настройка событий для круга в начале
+    circle.addEventListener("mousedown", incrementScore, { once: true });
+    circle.addEventListener("touchstart", incrementScore, { once: true });
 
     // Логика для кнопок
     document.getElementById('earn').addEventListener('click', function() {
