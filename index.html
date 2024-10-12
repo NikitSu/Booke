@@ -1,34 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>Tap Game</title>
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Booke</title>
     <style>
-        * {
-            user-select: none; /* Запрет выделения текста на всех элементах */
-        }
-    </style>
-</head>
-<body>
-    <div id="loading-screen">
-        <div class="loading-text">Loading...</div>
-    </div>
-    <div id="play-screen" class="hidden">
-        <button id="play-button">Play</button>
-    </div>
-    <div id="game-screen" class="hidden">
-        <div class="score-container">Score: <span id="score">0</span></div>
-        <div class="circle"></div>
-        <div class="buttons-container">
-            <div class="button" id="earn">earn</div>
-            <div class="button" id="boost">boost</div>
-            <div class="button" id="friends">friends</div>
-            <div class="button" id="read">read</div>
-        </div>
-    </div>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500&display=swap')
 
-    <script src="script.js"></script>
-</body>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 200;
+          color: var(--tg-teme-text-color);
+          background: var(--tg-theme-bg-color);
+      }
+
+      #main {
+          width: 100%;
+          padding: 20px;
+          text-align: center;
+      }
+
+      h1 {
+          margin-top: 50px;
+          margin-bottom: 10px;
+      }
+
+      img {
+          width: 200px;
+          margin: 30px auto;
+      }
+
+      p {
+          width: 350px;
+          margin: 0 auto;
+      }
+
+      button {
+          border: 0;
+          border-radius: 5px;
+          margin-top: 50px;
+          height:60px;
+          width: 200px;
+          font-size: 20px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 500ms ease;
+          color: var(--tg-theme-button-color);
+          background-color: var(--tg-theme-button-text-color);
+      }
+
+      button:hover {
+        background-color: var(--tg-theme-secondary-bg-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>Тапалка</h1>
+      <img src='./assets/Bbook.png'>
+      <p>dasdasdadad dqweqwd sadvxzvl</p>
+      <button id="tap">Клик</button>
+    </div>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </body>
 </html>
