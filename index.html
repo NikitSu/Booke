@@ -6,68 +6,237 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Booke</title>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;500&display=swap')
 
-      * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-      }
-
+      html,
       body {
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 200;
-          color: var(--tg-teme-text-color);
-          background: var(--tg-theme-bg-color);
+        margin: 0;
+        height: 100%;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--tg-theme-bg-color);
+        flex-direction: column;
       }
 
-      #main {
-          width: 100%;
-          padding: 20px;
-          text-align: center;
+      .header {
+        padding: 0 0 25px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
 
-      h1 {
-          margin-top: 50px;
-          margin-bottom: 10px;
+      .header img {
+        width: 30px;
+        height: 30px;
       }
 
-      img {
-          width: 200px;
-          margin: 30px auto;
+      .score {
+        padding: 0 0 0 10px;
+        color: #C5FE4E;
+        text-align: center;
+        font-size: 36px;
+        font-weight: 800;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        font: small-caps bold 24px/1 sans-serif;
       }
 
-      p {
-          width: 350px;
-          margin: 0 auto;
+      .circle {
+        padding: 0 0 0 50px;
+        position: relative;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin: auto 0;
       }
 
-      button {
-          border: 0;
-          border-radius: 5px;
-          margin-top: 50px;
-          height:60px;
-          width: 200px;
-          font-size: 20px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 500ms ease;
-          color: var(--tg-theme-button-text-color);
-          background-color: var(--tg-theme-button-color);
+      .circle img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        box-shadow: 0px 0px 16px 0px rgba(198, 252, 81, 0.25);
+        transition: transform 0.2s ease;
+        --tiltX: 0deg;
+        --tiltY: 0deg;
+        transform: rotateX(var(--tiltX)) rotateY(var(--tiltY));
       }
 
-      button:hover {
-        background-color: var(--tg-theme-secondary-bg-color);
+      .buttons {
+        margin: 0;
+        height: 100%;
+        padding: 0 100px 0 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: var(--tg-theme-bg-color);
+        flex-direction: row;
+        justify-content: space-between;
+
+      }
+
+      .earn, .boost, .read, .friends {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .earn img, .boost img, .read img, .friends img {
+
+        width: 50px;
+        height: 50px;
+        border-radius: 30%;
+      }
+
+      .plus-one {
+        position: absolute;
+        font-family: Inter;
+        text-shadow: 0px 0px 16px 0px rgba(198, 252, 81, 0.25);
+        font-size: 30px;
+        font-weight: 900;
+        font-family: 'Times New Roman', Times, serif;
+        background: linear-gradient(180deg, #F1FB04 0%, #C6FF4D 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        pointer-events: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        animation: move-up 2s forwards;
+      }
+
+      @keyframes move-up {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        100% {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
       }
     </style>
   </head>
   <body>
-    <div id="main">
-      <h1>Тапалка</h1>
-      <img src='./assets/Bbook.png'>
-      <p>Tap Tap Tap</p>
-      <button id="tap">Клик</button>
+    <div class="game">
+      <div class="header">
+        <img src="./assets/coin1.PNG" alt="coin" draggable="false"/>
+        <h2 class="score" id="score">0</h2>
+      </div>
+      <div class="circle">
+        <img id="circle" src="./assets/Bbook.png" alt="book" draggable="false" />
+      </div>
+      <div class="buttons">
+        <div class="earn">
+          <img id="earn" src="./assets/earn.PNG" alt="earn" draggable="false" />
+        </div>
+        <div class="boost">
+          <img id="boost" src="./assets/Boost.PNG" alt="boost" draggable="false" />
+        </div>
+        <div class="friends">
+          <img id="friends" src="./assets/Friends.PNG" alt="friends" draggable="false" />
+        </div>
+        <div class="read">
+          <img id="read" src="./assets/Read.PNG" alt="read" draggable="false" />
+        </div>
+      </div>
     </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      let tg = window.Telegram.WebApp
+      const $circle = document.querySelector('#circle');
+      const $score = document.querySelector('#score');
+      const $earn = document.querySelector('#earn');
+      const $boost = document.querySelector('#boost');
+      const $friends = document.querySelector('#friends');
+      const $read = document.querySelector('#read');
+
+      function start() {
+        setScore(getScore())
+      }
+
+      function setScore(score) {
+        localStorage.setItem('score', score)
+        const score1 = new Intl.NumberFormat('en-US').format(score) + ' BOOKE'
+        $score.textContent = score1
+      }
+
+      function getScore() {
+        return Number(localStorage.getItem('score')) ?? 0
+      }
+
+      function addOne() {
+        setScore(getScore() + 1)
+      }
+
+      $earn.addEventListener('click', () => {
+        window.location.href = 'earn.html';
+      });
+
+      $boost.addEventListener('click', () => {
+        window.location.href = 'boost.html';
+      });
+
+      $friends.addEventListener('click', () => {
+        window.location.href = 'friends.html';
+      });
+
+      $read.addEventListener('click', () => {
+        window.location.href = 'read.html';
+      });
+
+      $circle.addEventListener('click', (event) => {
+          const rect = $circle.getBoundingClientRect();
+
+          const offsetX = event.clientX - rect.left - rect.width / 2;
+          const offsetY = event.clientY - rect.top - rect.height / 2;
+
+          const DEG = 30;
+
+          const tiltX = (offsetY / rect.height) * DEG;
+          const tiltY = (offsetX / rect.width) * -DEG;
+
+          $circle.style.setProperty('--tiltX', `${tiltX}deg`);
+          $circle.style.setProperty('--tiltY', `${tiltY}deg`);
+
+          setTimeout(() => {
+              $circle.style.setProperty('--tiltX', `0deg`);
+              $circle.style.setProperty('--tiltY', `0deg`);
+          }, 300);
+
+          const plusOne = document.createElement('div');
+          plusOne.classList.add('plus-one');
+          plusOne.textContent = '+1';
+          plusOne.style.left = `${event.clientX - rect.left}px`;
+          plusOne.style.top = `${event.clientY - rect.top}px`;
+
+          $circle.parentElement.appendChild(plusOne);
+
+          addOne();
+
+          setTimeout(() => {
+              plusOne.remove();
+          }, 2000);
+      });
+
+      start();
+    </script>
   </body>
 </html>
