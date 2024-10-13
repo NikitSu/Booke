@@ -213,9 +213,7 @@
       });
 
       $circle.addEventListener('click', (event) => {
-          if ("vibrate" in navigator) {
-            navigator.vibrate(100);  // Вибрация на 100 мс
-          }
+          navigator.vibrate(100);  // Вибрация на 100 мс
           const rect = $circle.getBoundingClientRect();
 
           const offsetX = event.clientX - rect.left - rect.width / 2;
