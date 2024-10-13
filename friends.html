@@ -34,11 +34,33 @@
     </style>
   </head>
   <body>
-    FRIENDS
+    <div id="referralSection" style="display: none;">
+      <button id="copyReferralLink">Скопировать реферальную ссылку</button>
+    </div>
     <button class="button" id="back-button">Go Back</button>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+        let tg = window.Telegram.WebApp
+
         document.getElementById('back-button').addEventListener('click', () => {
             window.location.href = 'index.html';
+        });
+
+        const userID = tg.initDataUnsafe.user.id;
+        const referralSection = document.getElementById('referralSection');
+        const copyReferralLinkButton = document.getElementById('copyReferralLink');
+
+        $friends.addEventListener('click', () => {
+          referralSection.style.display = 'block';
+        });
+
+        copyReferralLinkButton.addEventListener('click', () => {
+          const referralLink = `${WEB_APP_URL}?ref=${userID}`;
+          navigator.clipboard.writeText(referralLink).then(() => {
+            alert("Реферальная ссылка скопирована!");
+          }).catch(err => {
+            console.error('Не удалось скопировать ссылку: ', err);
+          });
         });
     </script>
   </body>
