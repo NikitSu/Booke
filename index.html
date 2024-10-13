@@ -35,8 +35,8 @@
       }
 
       .header img {
-        width: 30px;
-        height: 30px;
+        width: 60px;
+        height: 60px;
       }
 
       .score {
@@ -50,11 +50,11 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        font: small-caps bold 24px/1 sans-serif;
+        font: small-caps bold 32px/1 sans-serif;
       }
 
       .circle {
-        padding: 0 0 0 50px;
+
         position: relative;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -65,8 +65,8 @@
       }
 
       .circle img {
-        width: 200px;
-        height: 200px;
+        width: 300px;
+        height: 300px;
         border-radius: 50%;
         box-shadow: 0px 0px 16px 0px rgba(198, 252, 81, 0.25);
         transition: transform 0.2s ease;
@@ -76,15 +76,15 @@
       }
 
       .buttons {
-        margin: 0;
-        height: 100%;
-        padding: 0 100px 0 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
         width: 100%;
+        background-color: #242424;
         display: flex;
-        align-items: center;
-        flex-direction: row;
-        justify-content: space-between;
-        position: sticky;
+        justify-content: space-around;
+        padding: 10px 0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
       }
 
       .earn, .boost, .read, .friends {
@@ -93,14 +93,15 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        position: sticky;
+        text-align: center;
+        flex: 1;
       }
 
       .earn img, .boost img, .read img, .friends img {
-
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         border-radius: 30%;
+        margin-bottom: 5px;
       }
 
       .plus-one {
@@ -139,24 +140,24 @@
   <body>
     <div class="game">
       <div class="header">
-        <img src="coin1.PNG" alt="coin" draggable="false"/>
+        <img src="./assets/coin1.PNG" alt="coin" draggable="false"/>
         <h2 class="score" id="score">0</h2>
       </div>
       <div class="circle">
-        <img id="circle" src="Bbook.png" alt="book" draggable="false" />
+        <img id="circle" src="./assets/Bbook.png" alt="book" draggable="false" />
       </div>
       <div class="buttons">
         <div class="earn">
-          <img id="earn" src="earn.PNG" alt="earn" draggable="false" />
+            <img id="earn" src="./assets/earn.PNG" alt="earn" draggable="false" />
         </div>
         <div class="boost">
-          <img id="boost" src="Boost.PNG" alt="boost" draggable="false" />
+          <img id="boost" src="./assets/Boost.PNG" alt="boost" draggable="false" />
         </div>
         <div class="friends">
-          <img id="friends" src="Friends.PNG" alt="friends" draggable="false" />
+          <img id="friends" src="./assets/Friends.PNG" alt="friends" draggable="false" />
         </div>
         <div class="read">
-          <img id="read" src="Read.PNG" alt="read" draggable="false" />
+          <img id="read" src="./assets/Read.PNG" alt="read" draggable="false" />
         </div>
       </div>
     </div>
