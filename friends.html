@@ -52,14 +52,30 @@ FRIENDS
     });
 
     document.getElementById('copy-button').addEventListener('click', async () => {
-        const username = window.Telegram.WebApp.initDataUnsafe.user.username; // предполагаем, что username берется из Telegram WebApp
+        const tg = window.Telegram.WebApp.initDataUnsafe;
+        const username = tg?.user?.username || 'default_user'; // или используйте какое-то дефолтное имя, если username нет
         const referralLink = `${window.location.origin}/?ref=${username}`;
 
-        try {
-            await navigator.clipboard.writeText(referralLink);
-            document.getElementById('message').innerText = 'Referral link copied to clipboard!';
-        } catch (error) {
-            document.getElementById('message').innerText = 'Failed to copy referral link.';
+        if (navigator.clipboard) {
+            try {
+                await navigator.clipboard.writeText(referralLink);
+                document.getElementById('message').innerText = 'Referral link copied to clipboard!';
+            } catch (error) {
+                document.getElementById('message').innerText = 'Failed to copy referral link.';
+            }
+        } else {
+            // Fallback для браузеров, которые не поддерживают navigator.clipboard
+            const textarea = document.createElement('textarea');
+            textarea.value = referralLink;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                document.getElementById('message').innerText = 'Referral link copied to clipboard!';
+            } catch (error) {
+                document.getElementById('message').innerText = 'Failed to copy referral link.';
+            }
+            document.body.removeChild(textarea);
         }
     });
 </script>
