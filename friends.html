@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Friends</title>
     <style>
         body {
@@ -19,6 +19,7 @@
             font-weight: 800;
             font-family: sans-serif;
         }
+
         .button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -28,40 +29,39 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .button:hover {
             background-color: #B2E53F;
         }
+
+        #message {
+            font-size: 24px;
+            margin-top: 10px;
+            color: #ff5555;
+        }
     </style>
-  </head>
-  <body>
-    <div id="referralSection">
-      <button id="copyReferralLink">Скопировать реферальную ссылку</button>
-    </div>
-    <button class="button" id="back-button">Go Back</button>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        let tg = window.Telegram.WebApp
+</head>
+<body>
+FRIENDS
+<button class="button" id="copy-button">Copy Referral Link</button>
+<div id="message"></div>
+<button class="button" id="back-button">Go Back</button>
+<script>
+    document.getElementById('back-button').addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
 
-        document.getElementById('back-button').addEventListener('click', () => {
-            window.location.href = 'index.html';
-        });
+    document.getElementById('copy-button').addEventListener('click', async () => {
+        const username = window.Telegram.WebApp.initDataUnsafe.user.username; // предполагаем, что username берется из Telegram WebApp
+        const referralLink = `${window.location.origin}/?ref=${username}`;
 
-        const userID = tg.initDataUnsafe.user.id;
-        const referralSection = document.getElementById('referralSection');
-        const copyReferralLinkButton = document.getElementById('copyReferralLink');
-
-        $friends.addEventListener('click', () => {
-          referralSection.style.display = 'block';
-        });
-
-        copyReferralLinkButton.addEventListener('click', () => {
-          const referralLink = `${WEB_APP_URL}?ref=${userID}`;
-          navigator.clipboard.writeText(referralLink).then(() => {
-            alert("Реферальная ссылка скопирована!");
-          }).catch(err => {
-            console.error('Не удалось скопировать ссылку: ', err);
-          });
-        });
-    </script>
-  </body>
+        try {
+            await navigator.clipboard.writeText(referralLink);
+            document.getElementById('message').innerText = 'Referral link copied to clipboard!';
+        } catch (error) {
+            document.getElementById('message').innerText = 'Failed to copy referral link.';
+        }
+    });
+</script>
+</body>
 </html>
