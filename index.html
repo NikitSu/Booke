@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Booke</title>
     <style>
-
       html,
       body {
         margin: 0;
@@ -156,6 +155,9 @@
         <div class="friends">
           <img id="friends" src="./assets/Friends.PNG" alt="friends" draggable="false" />
         </div>
+        <div id="referralSection" style="display: none;">
+          <button id="copyReferralLink">Скопировать реферальную ссылку</button>
+        </div>
         <div class="read">
           <img id="read" src="./assets/Read.PNG" alt="read" draggable="false" />
         </div>
@@ -177,6 +179,7 @@
       const $boost = document.querySelector('#boost');
       const $friends = document.querySelector('#friends');
       const $read = document.querySelector('#read');
+      const WEB_APP_URL = "https://nikitsu.github.io/Booke/";
 
       function start() {
           setScore(getScore())
@@ -247,8 +250,26 @@
           }, 2000);
       });
 
+
       start();
 
+      // JavaScript-код для работы с реферальной системой
+      const userID = tg.initDataUnsafe.user.username;
+      const referralSection = document.getElementById('referralSection');
+      const copyReferralLinkButton = document.getElementById('copyReferralLink');
+
+      $friends.addEventListener('click', () => {
+        referralSection.style.display = 'block';
+      });
+
+      copyReferralLinkButton.addEventListener('click', () => {
+        const referralLink = `${WEB_APP_URL}?ref=${userID}`;
+        navigator.clipboard.writeText(referralLink).then(() => {
+          alert("Реферальная ссылка скопирована!");
+        }).catch(err => {
+          console.error('Не удалось скопировать ссылку: ', err);
+        });
+      });
     </script>
   </body>
 </html>
