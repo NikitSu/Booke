@@ -16,7 +16,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: var(--tg-theme-bg-color);
+        background-image: url('assets/bg.jpeg');
+        background-repeat: no-repeat;
+        background-size: cover;
         flex-direction: column;
       }
 
@@ -80,10 +82,9 @@
         width: 100%;
         display: flex;
         align-items: center;
-        background-color: var(--tg-theme-bg-color);
         flex-direction: row;
         justify-content: space-between;
-
+        position: sticky;
       }
 
       .earn, .boost, .read, .friends {
@@ -92,6 +93,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        position: sticky;
       }
 
       .earn img, .boost img, .read img, .friends img {
@@ -137,11 +139,11 @@
   <body>
     <div class="game">
       <div class="header">
-        <img src="coin1.PNG" alt="coin" draggable="false"/>
+        <img src="./assets/coin1.PNG" alt="coin" draggable="false"/>
         <h2 class="score" id="score">0</h2>
       </div>
       <div class="circle">
-        <img id="circle" src="Bbook.png" alt="book" draggable="false" />
+        <img id="circle" src="./assets/Bbook.png" alt="book" draggable="false" />
       </div>
       <div class="buttons">
         <div class="earn">
@@ -219,7 +221,7 @@
           setTimeout(() => {
               $circle.style.setProperty('--tiltX', `0deg`);
               $circle.style.setProperty('--tiltY', `0deg`);
-          }, 300);
+          }, 150);
 
           const plusOne = document.createElement('div');
           plusOne.classList.add('plus-one');
