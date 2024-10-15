@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Booke</title>
+    <title>Booke-test</title>
     <style>
       html,
       body {
@@ -52,8 +52,14 @@
         font: small-caps bold 32px/1 sans-serif;
       }
 
-      .circle {
+      .game {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
 
+      .circle {
         position: relative;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -86,7 +92,7 @@
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
       }
 
-      .earn, .boost, .read, .friends {
+      .earn, .boost, .read, .friends, .main {
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
@@ -94,13 +100,25 @@
         user-select: none;
         text-align: center;
         flex: 1;
+        padding: 5px; /* Add padding to create space around the buttons */
       }
 
-      .earn img, .boost img, .read img, .friends img {
-        width: 60px;
-        height: 60px;
+      .earn img, .boost img, .read img, .friends img, .main img {
+        width: 55px;
+        height: 55px;
         border-radius: 30%;
-        margin-bottom: 5px;
+        margin-bottom: 5px; /* Spacing from the bottom */
+      }
+
+      .main img {
+        width: 50px;
+        height: 50px;
+        border-radius: 30%;
+        margin-top: 16px;
+      }
+
+      .buttons {
+        margin-bottom: -15px;
       }
 
       .plus-one {
@@ -134,118 +152,276 @@
           transform: translateY(-50px);
         }
       }
+
+      .content {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        background-color: #1c1f24;
+        color: #C5FE4E;
+        font-size: 48px;
+        font-weight: 800;
+        font-family: sans-serif;
+      }
+
+      .show {
+        display: flex;
+      }
+
+      .button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 24px;
+        background-color: #C5FE4E;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .button:hover {
+        background-color: #B2E53F;
+      }
+
+      #notification {
+        display: none; /* Hide notification by default */
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(28, 31, 36, 0.8); /* Slightly darker semi-transparent background */
+        color: white;
+        padding: 2px 10px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 16px 0px rgba(178, 229, 63, 0.5);
+        z-index: 1000; /* Ensure notification is above other elements */
+        opacity: 0;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth animation */
+      }
+
+      @keyframes fadeInOut {
+        0%,
+        100% {
+          opacity: 0;
+        }
+
+        10%,
+        90% {
+          opacity: 1;
+        }
+      }
+
+      #notification.show {
+        display: block;
+        animation: fadeInOut 3s ease;
+      }
+
+      #notification img {
+        width: 15px; /* Adjust the size as required */
+        height: 15px; /* Adjust the size as required */
+        margin-right: 5px;
+        margin-top: 5px;
+        border-radius: 50px;
+      }
+
+      .main {
+        position: relative;
+        bottom: 15px;
+      }
     </style>
   </head>
   <body>
     <div class="game">
       <div class="header">
-        <img src="./assets/coin1.PNG" alt="coin" draggable="false"/>
+        <img src="./assets/coin1.PNG" alt="coin" draggable="false" />
         <h2 class="score" id="score">0</h2>
       </div>
       <div class="circle">
         <img id="circle" src="./assets/Bbook.png" alt="book" draggable="false" />
       </div>
-      <div class="buttons">
-        <div class="earn">
-            <img id="earn" src="./assets/earn.PNG" alt="earn" draggable="false" />
-        </div>
-        <div class="boost">
-          <img id="boost" src="./assets/Boost.PNG" alt="boost" draggable="false" />
-        </div>
-        <div class="friends">
-          <img id="friends" src="./assets/Friends.PNG" alt="friends" draggable="false" />
-        </div>
-        <div class="read">
-          <img id="read" src="./assets/Read.PNG" alt="read" draggable="false" />
-        </div>
+    </div>
+
+    <div id="earnContent" class="content">
+      <div>EARN</div>
+    </div>
+    <div id="boostContent" class="content">
+      <div>BOOST</div>
+    </div>
+    <div id="friendsContent" class="content">
+      <input type="text" id="referralLink" value="https://example.com/referral/12345" readonly />
+      <button class="button" id="copyButton">Copy Referral Link</button>
+      <div id="notification">
+        <img src="./assets/success.PNG" alt="Success" />
+        <span>Копирование прошло успешно!</span>
       </div>
     </div>
+    <div id="readContent" class="content">
+      <div>READ</div>
+    </div>
+
+    <div class="buttons">
+      <div class="earn">
+        <img id="earn" src="./assets/earn.PNG" alt="earn" draggable="false" />
+      </div>
+      <div class="boost">
+        <img id="boost" src="./assets/Boost.PNG" alt="boost" draggable="false" />
+      </div>
+      <!-- Center button -->
+      <div class="main">
+        <img id="main" src="./assets/coin1.png" alt="main" draggable="false" />
+      </div>
+      <div class="friends">
+        <img id="friends" src="./assets/Friends.PNG" alt="friends" draggable="false" />
+      </div>
+      <div class="read">
+        <img id="read" src="./assets/Read.PNG" alt="read" draggable="false" />
+      </div>
+    </div>
+
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
       if ('addEventListener' in document) {
-          document.addEventListener('DOMContentLoaded', function() {
-              FastClick.attach(document.body);
-          }, false);
+        document.addEventListener(
+          'DOMContentLoaded',
+          function () {
+            FastClick.attach(document.body);
+          },
+          false,
+        );
       }
 
-      let tg = window.Telegram.WebApp
       const $circle = document.querySelector('#circle');
       const $score = document.querySelector('#score');
       const $earn = document.querySelector('#earn');
       const $boost = document.querySelector('#boost');
       const $friends = document.querySelector('#friends');
       const $read = document.querySelector('#read');
-      const WEB_APP_URL = "https://nikitsu.github.io/Booke/";
+      const $main = document.querySelector('#main');
+      const $game = document.querySelector('.game');
+      const $earnContent = document.querySelector('#earnContent');
+      const $boostContent = document.querySelector('#boostContent');
+      const $friendsContent = document.querySelector('#friendsContent');
+      const $readContent = document.querySelector('#readContent');
+      const notification = document.querySelector('#notification');
+      const copyButton = document.getElementById('copyButton');
+      const referralLink = document.getElementById('referralLink');
 
       function start() {
-          setScore(getScore())
+        setScore(getScore());
       }
 
       function setScore(score) {
-          localStorage.setItem('score', score)
-          const score1 = new Intl.NumberFormat('en-US').format(score) + ' BOOKE'
-          $score.textContent = score1
+        localStorage.setItem('score', score);
+        const score1 = new Intl.NumberFormat('en-US').format(score) + ' BOOKE';
+        $score.textContent = score1;
       }
 
       function getScore() {
-          return Number(localStorage.getItem('score')) ?? 0
+        return Number(localStorage.getItem('score')) ?? 0;
       }
 
       function addOne() {
-          setScore(getScore() + 1)
+        setScore(getScore() + 1);
+      }
+
+      function showContent(content) {
+        // Hide all content sections
+        const contents = [$earnContent, $boostContent, $friendsContent, $readContent];
+        contents.forEach((section) => (section.style.display = 'none'));
+        // Show the selected content section
+        content.style.display = 'flex';
+      }
+
+      function showMainContent() {
+        // Show the game (main content) and hide other sections
+        $game.style.display = 'flex';
+        const contents = [$earnContent, $boostContent, $friendsContent, $readContent];
+        contents.forEach((section) => (section.style.display = 'none'));
       }
 
       $earn.addEventListener('click', () => {
-          window.location.href = 'earn.html';
+        $game.style.display = 'none';
+        showContent($earnContent);
       });
 
       $boost.addEventListener('click', () => {
-          window.location.href = 'boost.html';
+        $game.style.display = 'none';
+        showContent($boostContent);
       });
 
       $friends.addEventListener('click', () => {
-          window.location.href = 'friends.html';
+        $game.style.display = 'none';
+        showContent($friendsContent);
       });
 
       $read.addEventListener('click', () => {
-          window.location.href = 'read.html';
+        $game.style.display = 'none';
+        showContent($readContent);
+      });
+
+      $main.addEventListener('click', () => {
+        showMainContent();
       });
 
       $circle.addEventListener('click', (event) => {
+        const rect = $circle.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left - rect.width / 2;
+        const offsetY = event.clientY - rect.top - rect.height / 2;
+        const DEG = 30;
 
-          const rect = $circle.getBoundingClientRect();
+        const tiltX = (offsetY / rect.height) * DEG;
+        const tiltY = (offsetX / rect.width) * -DEG;
 
-          const offsetX = event.clientX - rect.left - rect.width / 2;
-          const offsetY = event.clientY - rect.top - rect.height / 2;
+        $circle.style.setProperty('--tiltX', `${tiltX}deg`);
+        $circle.style.setProperty('--tiltY', `${tiltY}deg`);
 
-          const DEG = 30;
+        setTimeout(() => {
+          $circle.style.setProperty('--tiltX', `0deg`);
+          $circle.style.setProperty('--tiltY', `0deg`);
+        }, 150);
 
-          const tiltX = (offsetY / rect.height) * DEG;
-          const tiltY = (offsetX / rect.width) * -DEG;
+        const plusOne = document.createElement('div');
+        plusOne.classList.add('plus-one');
+        plusOne.textContent = '+1';
+        plusOne.style.left = `${event.clientX - rect.left}px`;
+        plusOne.style.top = `${event.clientY - rect.top}px`;
 
-          $circle.style.setProperty('--tiltX', `${tiltX}deg`);
-          $circle.style.setProperty('--tiltY', `${tiltY}deg`);
+        $circle.parentElement.appendChild(plusOne);
 
-          setTimeout(() => {
-              $circle.style.setProperty('--tiltX', `0deg`);
-              $circle.style.setProperty('--tiltY', `0deg`);
-          }, 150);
+        addOne();
 
-          const plusOne = document.createElement('div');
-          plusOne.classList.add('plus-one');
-          plusOne.textContent = '+1';
-          plusOne.style.left = `${event.clientX - rect.left}px`;
-          plusOne.style.top = `${event.clientY - rect.top}px`;
-
-          $circle.parentElement.appendChild(plusOne);
-
-          addOne();
-
-          setTimeout(() => {
-              plusOne.remove();
-          }, 2000);
+        setTimeout(() => {
+          plusOne.remove();
+        }, 2000);
       });
+
+      copyButton.addEventListener('click', () => {
+        // Copy text to clipboard
+        navigator.clipboard
+          .writeText(referralLink.value)
+          .then(() => {
+            showNotification('Копирование прошло успешно!');
+          })
+          .catch((err) => {
+            console.error('Ошибка копирования: ', err);
+          });
+      });
+
+      function showNotification(message) {
+        notification.querySelector('span').textContent = message;
+        notification.classList.add('show'); // Show notification with animation
+
+        setTimeout(() => {
+          notification.classList.remove('show'); // Hide notification after duration
+        }, 3000); // Duration should match the animation time
+      }
 
       start();
     </script>
